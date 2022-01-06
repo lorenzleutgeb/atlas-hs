@@ -1,6 +1,6 @@
 {
   description = "lac-hs";
-  inputs.nixpkgs = { url = "nixpkgs/nixos-20.09"; };
+  inputs.nixpkgs = { url = "nixpkgs/nixos-21.11"; };
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
@@ -13,6 +13,8 @@
             dot2tex
             stack
             z3
+
+            ormolu
           ];
           shellHook = ''
             stack --version

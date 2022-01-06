@@ -9,8 +9,28 @@ data Tree a = Leaf | Node (Tree a) a (Tree a)
 --  Leaf :: Tree a
 --  Node :: Tree a -> a -> Tree a -> Tree a
 
-bottom :: a -> Tree a
-bottom x = Node Leaf x Leaf
+end :: a -> Tree a
+end x = Node Leaf x Leaf
+
+root :: Tree a -> Maybe a
+root Leaf = Nothing
+root (Node _ x _) = Just x
+
+checkBound :: (a -> a -> Bool) -> Maybe a -> a -> Bool
+checkBound _ Nothing _ = True
+checkBound o (Just x) y = x `o` y
+
+sandwich :: Ord a => Maybe a -> Maybe a -> a -> Bool
+sandwich low upp x = checkBound (<) low x && checkBound (>) upp x
+
+isBST' :: (Eq a, Ord a) => Maybe a -> Maybe a -> Tree a -> Bool
+isBST' low upp Leaf = True
+isBST' low upp (Node l x r) = sandwich low upp x &&
+                              isBST' low (Just x) l &&
+                              isBST' (Just x) upp r
+
+bst :: (Eq a, Ord a) => Tree a -> Bool
+bst = isBST' Nothing Nothing
 
 make_list_left :: [a] -> Tree a
 make_list_left [] = Leaf

@@ -6,6 +6,6 @@ main :: IO ()
 main = do
 --  result <- getEnvironment
 --  putStrLn (unlines (map (\(a, b) -> a ++ "=" ++ b) result))
-  result <- readProcess "./generate.sh" [] ""
-  putStrLn result
+--  result <- readProcess "./generate.sh" [] ""
+--  putStrLn result
   defaultMain
